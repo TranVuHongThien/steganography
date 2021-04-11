@@ -301,11 +301,10 @@ def main():
 				print("[red]Wrong password![/red]")
 				sys.exit(0)
 
-		else:
+		else: 
 			decrypted=cipher
-
-
-		header = decrypted.decode()[:len(headerText)]
+			
+		# header = decrypted.decode()[:len(headerText)]
 
 		if header!=headerText:
 			print("[red]Wrong password![/red]")
