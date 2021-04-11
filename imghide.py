@@ -199,14 +199,6 @@ def test(img):
 	print(pix[0])
 	print(type(pix))
 
-# def print_credits():
-# 	table = Table(show_header=True)
-# 	table.add_column("Author",style="yellow")
-# 	table.add_column("Contact",style="yellow")
-# 	table.add_row("Teja Swaroop", "tejaswaroop156@gmail.com ")
-# 	console.print(table)
-
-
 
 def insertHeaders(img):
 	
