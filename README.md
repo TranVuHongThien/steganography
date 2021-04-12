@@ -1,4 +1,4 @@
-﻿# IMGHIDE
+﻿# STEGANOGRAPHY
 
 ![enter image description here](https://i.ibb.co/MZR48SH/imgide-sc.png)
 
@@ -13,4 +13,4 @@ You can install the all requirements from **requirements.txt** by using pip.
 
 ## Usage
 
-    python imghide.py
+    python steganography.py
