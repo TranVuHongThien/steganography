@@ -26,12 +26,12 @@ def encrypt(key, source, encode=True):
 	"""
 	Encrypts the message using AES 256
 	"""
-	key = SHA256.new(key).digest()  # use SHA-256 over our key to get a proper-sized AES 
-	IV = Random.new().read(AES.block_size)  # generate IV
+	key = SHA256.new(key).digest()  # use SHA-256 over our key to get a proper-sized AES key
+	IV = Random.new().read(AES.block_size)  
 	encryptor = AES.new(key, AES.MODE_CBC, IV)
-	padding = AES.block_size - len(source) % AES.block_size  # calculate needed padding
-	source += bytes([padding]) * padding  # Python 2.x: source += chr(padding) * padding
-	data = IV + encryptor.encrypt(source)  # store the IV at the beginning and encrypt
+	padding = AES.block_size - len(source) % AES.block_size  
+	source += bytes([padding]) * padding  
+	data = IV + encryptor.encrypt(source) 
 	return base64.b64encode(data).decode() if encode else data
 
 def decrypt(key, source, decode=True):
@@ -41,13 +41,13 @@ def decrypt(key, source, decode=True):
 	if decode:
 	    source = base64.b64decode(source.encode())
 	key = SHA256.new(key).digest()  # use SHA-256 over our key to get a proper-sized AES key
-	IV = source[:AES.block_size]  # extract the IV from the beginning
+	IV = source[:AES.block_size]  
 	decryptor = AES.new(key, AES.MODE_CBC, IV)
-	data = decryptor.decrypt(source[AES.block_size:])  # decrypt
-	padding = data[-1]  # pick the padding value from the end; Python 2.x: ord(data[-1])
-	if data[-padding:] != bytes([padding]) * padding:  # Python 2.x: chr(padding) * padding
+	data = decryptor.decrypt(source[AES.block_size:])  
+	padding = data[-1]  
+	if data[-padding:] != bytes([padding]) * padding:  
 	    raise ValueError("Invalid padding...")
-	return data[:-padding]  # remove the padding
+	return data[:-padding]  
 
 
 def convertToRGB(img):
@@ -182,10 +182,8 @@ def decodeImage(image):
 				current_pixel+=3
 
 				if three_pixels[-1]%2!=0:
-					# stop reading
 					break
 
-			# print("Decoded: %s"%decoded)
 			return decoded
 		except Exception as e:
 			print("[red]An error occured - [/red]%s"%e)
@@ -194,7 +192,6 @@ def decodeImage(image):
 
 
 def main():
-	# insertHeaders(img)
 
 	print("Do you want to ______?(Type '1' or '2')")
 	op = int(input("1. Encode\n2. Decode\n>>"))
@@ -229,14 +226,12 @@ def main():
 		cipher=""
 		if password!="":
 			cipher = encrypt(key=password.encode(),source=message.encode())
-			# Add header to cipher
 			cipher = headerText + cipher
 		else:
 			cipher = message
 
 
 		image = Image.open(img)
-		#print("[yellow]Image Mode: [/yellow]%s"%image.mode)
 		if image.mode!='RGB':
 			image = convertToRGB(image)
 		newimg = image.copy()
@@ -288,7 +283,6 @@ def main():
 if __name__ == "__main__":
 	os.system('cls' if os.name == 'nt' else 'clear')
 	cprint(figlet_format('STEGANOGRAPHY!', font='starwars'),'cyan', attrs=['bold'])
-	# print_credits()
 	print()
 	print("[bold]Steganography.py[/bold] allows you to hide message inside an image.")
 	print()
